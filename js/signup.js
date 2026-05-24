@@ -10,7 +10,7 @@
    REGISTRATION PAGE
 ══════════════════════ */
 
-const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com";
+const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com/api/v1";
 
 
 // Input fields
