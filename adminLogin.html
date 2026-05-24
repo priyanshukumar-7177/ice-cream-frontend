@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hindustan IceCream - Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        #otpBox        { display: none; margin-top: 10px; }
+        #otpBox.active { display: block; }
+
+        .otp-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            margin: 4px 0 8px;
+            color: #888;
+        }
+
+        #resendBtn {
+            background: none;
+            border: none;
+            color: #ee5a24;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.82rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        #resendBtn.visible { display: inline; }
+
+        .attempt-warning {
+            font-size: 0.8rem;
+            color: #e74c3c;
+            margin: 4px 0;
+            min-height: 1em;
+        }
+    </style>
+</head>
+
+<body class="fade-in">
+
+<div class="floating-ice">🍦</div>
+
+<div class="card">
+    <h1>Hindustan IceCream</h1>
+
+    <div id="loginFormSection">
+
+        <div class="input-group">
+            <input id="email" type="email" placeholder="Admin Email">
+        </div>
+
+        <div class="input-group">
+            <input id="password" type="password" placeholder="Password">
+        </div>
+
+        <!-- OTP send + attempt warning -->
+        <p class="attempt-warning" id="attemptWarning"></p>
+        <button class="btn send-btn" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
+
+        <!-- OTP Box (hidden until OTP sent) -->
+        <div id="otpBox">
+            <div class="input-group">
+                <input id="otp" type="text" placeholder="Enter OTP" maxlength="6">
+            </div>
+            <div class="otp-meta">
+                <span id="timer"></span>
+                <button id="resendBtn" onclick="resendOTP()">Resend OTP</button>
+            </div>
+        </div>
+
+        <button class="btn register-btn login-btn" onclick="loginAdmin()">Verify & Login</button>
+
+        <div class="login">
+            Not an admin?
+            <span onclick="window.location.href='./login.html'">User Login</span>
+        </div>
+
+    </div>
+
+    <!-- Success Section -->
+    <div class="success" id="loginSuccessBox" style="display:none;">
+        <div class="check-circle">✔</div>
+        <p>Admin Login Successful!</p>
+        <div class="line"></div>
+    </div>
+
+</div>
+
+<script src="js/adminLogin.js"></script>
+</body>
+</html>

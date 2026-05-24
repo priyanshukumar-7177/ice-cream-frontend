@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Hindustan IceCream — Premium handcrafted frozen delights. Order ice creams, sundaes, shakes & more online with doorstep delivery."/>
+<title>Hindustan IceCream – Premium Frozen Delights</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<link rel="stylesheet" href="css/theme.css"/>
+<link rel="stylesheet" href="css/index.css"/>
+
+<!-- Apply saved theme BEFORE paint — no auth, purely cosmetic -->
+<script>
+  (function(){
+    var t = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+
+<!--
+  ┌─────────────────────────────────────────────────────┐
+  │  LOGIN-CHIP STYLE (injected by JS for guests only)  │
+  └─────────────────────────────────────────────────────┘
+  Add to your home.css if preferred; kept inline here so
+  the chip works even without a CSS rebuild.
+-->
+<style>
+  /* Login prompt chip shown to guest users in the navbar */
+  .login-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--accent-primary, #ff6b6b);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+  }
+  .login-chip:hover { opacity: 0.85; }
+  .login-chip i { font-size: 11px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     LOADER
+════════════════════════════════════ -->
+<div id="loader">
+  <span style="font-size:44px;filter:drop-shadow(0 0 12px var(--accent-primary));">🍦</span>
+  <div class="loader-ring"></div>
+  <div class="loader-text">HINDUSTAN ICECREAM</div>
+</div>
+
+<!-- Background floaters (decorative, public) -->
+<div class="bg-float">🍦</div>
+<div class="bg-float">🍧</div>
+<div class="bg-float">🍨</div>
+<div class="bg-float">🍡</div>
+<div class="bg-float">🧁</div>
+
+
+<!-- ════════════════════════════════════
+     NAVBAR
+     Public: brand, search
+     Protected: cart, profile, notifications
+════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-brand"><span>🍦</span>Hindustan IceCream</div>
+
+  <div class="nav-search">
+    <i class="fas fa-search"></i>
+    <!-- Search is PUBLIC — no auth needed -->
+    <input
+      type="text"
+      id="searchInput"
+      placeholder="Search your favourite flavour…"
+      oninput="filterProducts()"
+    />
+  </div>
+
+  <div class="nav-icons">
+
+    <!-- 🔒 PROTECTED: Notification Bell
+         Guests: requireAuth() in JS redirects to /login
+         The bell is always visible so guests know the feature exists. -->
+    <div style="position:relative">
+      <button class="notif-bell" id="notifBell" title="Notifications">
+        🔔
+        <span class="notif-badge" id="notifBadge">0</span>
+      </button>
+      <!-- Dropdown is populated only for authenticated users -->
+      <div class="notif-dropdown" id="notifDropdown">
+        <div class="notif-dropdown-header">
+          <h4>Notifications</h4>
+          <button class="notif-mark-all" onclick="markAllNotifRead()">Mark all read</button>
+        </div>
+        <div id="notifList">
+          <div class="notif-empty">No notifications yet 🔕</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 🔒 PROTECTED: Cart -->
+    <button class="nav-icon-btn" id="cartBtn" title="Cart">
+      <i class="fas fa-shopping-cart"></i>
+      <span class="icon-label">Cart</span>
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+
+    <!-- 🔒 PROTECTED: Profile -->
+    <button class="nav-icon-btn" id="profileBtn" title="Profile">
+      <i class="fas fa-user"></i>
+      <span class="icon-label">Profile</span>
+    </button>
+
+    <!--
+      JS (_applyAuthUI) injects a .login-chip here for guests:
+        <a href="./login.html" class="login-chip">🔒 Login</a>
+      Logged-in users see nothing extra.
+    -->
+
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+
+<!-- ════════════════════════════════════
+     MOBILE MENU
+════════════════════════════════════ -->
+<div class="mobile-menu" id="mobileMenu">
+  <!-- Search is PUBLIC -->
+  <input type="text" placeholder="Search flavours…" oninput="filterProducts(this.value)"/>
+  <div class="mobile-menu-links">
+    <!-- Both links always visible; requireAuth() handles redirect for guests -->
+    <a href="#" id="cartMobileBtn"><i class="fas fa-shopping-cart"></i> Cart</a>
+    <a href="#" id="profileMobileBtn"><i class="fas fa-user"></i> Profile</a>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     SLIDING ADS BANNER  (PUBLIC)
+     Populated by /api/v1/banners — no auth
+════════════════════════════════════ -->
+<div class="carousel-section">
+  <div class="carousel-track" id="carouselTrack">
+    <!-- Slides injected by loadBanners() in home.js -->
+  </div>
+  <button class="carousel-arrow prev" id="prevSlide"><i class="fas fa-chevron-left"></i></button>
+  <button class="carousel-arrow next" id="nextSlide"><i class="fas fa-chevron-right"></i></button>
+  <div class="carousel-dots" id="carouselDots"></div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     MAIN CONTENT  (PUBLIC)
+     Products load for everyone.
+     Buy / Add-to-Cart buttons are visible
+     to all; auth check happens on click.
+════════════════════════════════════ -->
+<main>
+  <div class="section-header fade-in">
+    <h1 class="gradient-text" style="font-size:clamp(24px,3vw,36px);font-weight:800;">
+      Our Signature Flavours
+    </h1>
+    <p>Handcrafted with love, served with a smile 🍨</p>
+    <div class="section-divider"></div>
+  </div>
+
+  <!-- Category Filter Bar (PUBLIC) -->
+  <div class="category-filter-bar" id="categoryBar">
+    <button class="cat-pill active" data-category="all" onclick="selectCategory('all', this)">
+      🔽 All
+    </button>
+    <!-- Dynamic pills added by loadCategories() in home.js -->
+  </div>
+
+  <section class="products-section">
+    <!-- Cards injected by renderProductGrid() in home.js -->
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+</main>
+
+
+<!-- ════════════════════════════════════
+     FOOTER  (PUBLIC)
+════════════════════════════════════ -->
+<footer id="footer">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>🍦 Hindustan IceCream</h3>
+      <p>Bringing joy, one scoop at a time since 1998. Premium frozen delights crafted from the finest ingredients.</p>
+      <div class="footer-social">
+        <a class="social-btn" href="https://www.instagram.com/abhikrsah" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a class="social-btn" href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a class="social-btn" href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+        <a class="social-btn" href="https://www.youtube.com/@AbhishekKumarSah-wo5lm" title="YouTube"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#">Ice Creams</a></li>
+        <li><a href="#">Family Packs</a></li>
+        <li><a href="#">Sugar Free</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+917061951629">📞 70619 51629</a></li>
+        <li><a href="mailto:hindustanicecream@gmail.com">✉ hindustanicecream@gmail.com</a></li>
+        <li><a href="#">📍 Bounsi, Bihar, India</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Hindustan IceCream. All rights reserved.</span>
+    <span>Made with ❤️ in India 🇮🇳</span>
+  </div>
+</footer>
+
+
+<!-- ════════════════════════════════════
+     NOTIFICATION DETAIL MODAL  (PRIVATE)
+     Only reachable after auth gate passes.
+════════════════════════════════════ -->
+<div class="notif-modal-overlay" id="notifModal">
+  <div class="notif-modal-box" id="notifModalBox">
+    <button class="notif-modal-close" onclick="closeNotifModal()" aria-label="Close">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="notif-modal-header">
+      <div class="notif-modal-icon" id="notifModalIcon">🔔</div>
+      <div>
+        <div class="notif-modal-type" id="notifModalType">Notification</div>
+        <div class="notif-modal-time" id="notifModalTime"></div>
+      </div>
+    </div>
+    <h3 class="notif-modal-title"   id="notifModalTitle"></h3>
+    <p  class="notif-modal-message" id="notifModalMessage"></p>
+    <div class="notif-modal-actions">
+      <button class="notif-modal-btn-secondary" onclick="closeNotifModal()">Close</button>
+      <button class="notif-modal-btn-primary" id="notifModalAction" style="display:none">
+        View Details <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════ -->
+<script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+<script src="js/api.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

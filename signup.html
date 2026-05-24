@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hindustan IceCream - Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="card">
+    <h1>Hindustan IceCream</h1>
+
+    <div id="formSection">
+        <div class="input-group">
+            <input id="name" type="text" placeholder="Full Name">
+        </div>
+
+        <div class="input-group">
+            <input id="email" type="email" placeholder="Email">
+        </div>
+
+        <div class="input-group">
+            <input id="password" type="password" placeholder="Password">
+        </div>
+
+        <div class="input-group">
+            <input id="confirmPassword" type="password" placeholder="Confirm Password">
+        </div>
+
+
+            <!-- Live password match message -->
+        <p id="message" style="margin: 5px 0; font-size: 0.9rem;"></p>
+
+        <button class="btn send-btn" onclick="showOTP()">Send OTP</button>
+
+        <div id="otpBox">
+             <div class="input-group">
+                <input id="otp" type="text" placeholder="Enter OTP">
+            </div>
+        </div>
+
+        <button class="btn register-btn" onclick="registerUser()">Verify & Register</button>
+
+        <div class="login">
+            Already have an account? <span onclick="window.location.href='login.html'">Login</span>
+        </div>
+    </div>
+
+    <!-- Success Section -->
+    <div class="success" id="successBox">
+        <div class="check-circle">
+            ✔
+        </div>
+        <p>Registration Successful!</p>
+        <div class="line"></div>
+    </div>
+</div>
+
+<!-- External JS -->
+<script src="js/signup.js"></script>
+
+</body>
+</html>

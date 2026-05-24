@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Your Cart — Hindustan IceCream</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+<link rel="stylesheet" href="css/theme.css"/>
+<link rel="stylesheet" href="css/cart.css"/>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<!-- Apply saved theme BEFORE paint -->
+<script>
+  (function(){
+    var t = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
+</head>
+<body>
+
+<!-- Top Bar -->
+<header class="cart-header">
+  <a href="index.html" class="cart-back" title="Back to Shop">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  <h1 class="cart-page-title">🛒 Your Cart</h1>
+  <a href="index.html" class="cart-shop-link">Continue Shopping</a>
+</header>
+
+<main class="cart-main">
+  <div class="cart-card">
+    <!-- Items -->
+    <div class="item-list" id="itemList"></div>
+
+    <div class="divider"></div>
+
+    <!-- Coupon -->
+    <div class="coupon-row">
+      <input class="coupon-input" id="couponInput" type="text" placeholder="🎟️ Enter coupon code…"/>
+      <button class="apply-btn" onclick="applyCoupon()">Apply</button>
+    </div>
+
+    <div class="discount-strip" id="discountStrip">
+      <span class="discount-label">🎉 Discount Applied!</span>
+      <span class="discount-val" id="discountVal"></span>
+    </div>
+
+    <div class="error-strip" id="errorStrip">
+      ❌ <span>Invalid coupon code. Try again.</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Summary -->
+    <div class="cart-summary">
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotalDisplay">₹0</span>
+      </div>
+      <div class="summary-row discount-row" id="discountRow" style="display:none;">
+        <span>Discount</span>
+        <span class="discount-amount" id="discountAmount">-₹0</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-row summary-total">
+        <span>Total</span>
+        <span class="total-price" id="totalDisplay">₹0</span>
+      </div>
+    </div>
+
+    <!-- Delivery Address -->
+    <div class="address-section" id="addressSection">
+      <div class="address-toggle" onclick="toggleAddress()">
+        <span class="address-toggle-left">
+          <span class="addr-icon">📍</span> Delivery Address
+        </span>
+        <span class="address-toggle-right">
+          Add <span class="addr-chevron">▼</span>
+        </span>
+      </div>
+      <div class="address-body">
+        <div class="address-body-inner">
+          <div class="address-body-inner-pad">
+            <div class="addr-saved" onclick="useSaved()">
+              <span class="addr-dot"></span>
+              <span class="addr-saved-text">Use saved address from profile</span>
+              <span class="addr-use-btn">Use ›</span>
+            </div>
+            <input class="addr-input" id="addrName"  type="text" placeholder="Full name" />
+            <input class="addr-input" id="addrPhone" type="tel"  placeholder="Phone number" />
+            <input class="addr-input" id="addrLine1" type="text" placeholder="Address line 1" />
+            <input class="addr-input" id="addrLine2" type="text" placeholder="Address line 2 (optional)" />
+            <div class="addr-row-2">
+              <input class="addr-input" id="addrCity" type="text" placeholder="City" />
+              <input class="addr-input" id="addrPin"  type="text" placeholder="PIN code" />
+            </div>
+            <input class="addr-input" id="addrState" type="text" placeholder="State" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="buy-btn" id="buyBtn" onclick="BuyHandler()">
+      <i class="fas fa-lock" style="margin-right:8px;"></i> PLACE ORDER
+    </button>
+  </div>
+</main>
+
+<script src="js/api.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hindustan IceCream - Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="fade-in">
+
+<div class="floating-ice">🍦</div>
+
+<div class="card">
+    <h1>Hindustan IceCream</h1>
+
+    <div id="loginFormSection">
+
+        <div class="input-group">
+            <input type="email" placeholder="Email">
+        </div>
+
+        <div class="input-group">
+            <input type="password" placeholder="Password">
+        </div>
+
+        <div class="options">
+            <label>
+                <input type="checkbox"> Remember Me
+            </label>
+            <a href="#" class="link">Forgot Password?</a>
+        </div>
+
+        <button class="btn register-btn login-btn" onclick="loginUser()">Login</button>
+
+        <div class="login">
+            Don’t have an account? 
+            <span onclick="window.location.href='signup.html'">Register</span>
+        </div>
+
+    </div>
+
+    <!-- Success Section -->
+    <div class="success" id="loginSuccessBox">
+        <div class="check-circle">
+            ✔
+        </div>
+        <p>Login Successful!</p>
+        <div class="line"></div>
+    </div>
+
+</div>
+
+<script src="js/login.js"></script>
+</body>
+</html>

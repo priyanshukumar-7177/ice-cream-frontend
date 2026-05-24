@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmed</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+   <link rel="stylesheet" href="css/order-success.css"/>
+</head>
+<body>
+
+  <!-- Background layer (fixed, sits below everything) -->
+  <div id="bg-layer">
+    <div class="bg-grid"></div>
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+  </div>
+
+  <!-- Scrollable content (z-index:1, on top of bg) -->
+  <div id="page">
+    <div class="container">
+
+      <div class="icon-wrap">
+        <div class="circle-outer">
+          <div class="circle-inner">
+            <svg class="checkmark" viewBox="0 0 52 52">
+              <circle class="ck-circle" cx="26" cy="26" r="25"/>
+              <path   class="ck-check"  d="M14 27 l8 8 l16-16"/>
+            </svg>
+          </div>
+        </div>
+        <div class="ripple r1"></div>
+        <div class="ripple r2"></div>
+      </div>
+
+      <p class="eye-label">Payment Successful</p>
+
+      <h1 class="heading">
+        Order <span class="grad" id="orderId">#A3F9C1</span><br/>Confirmed.
+      </h1>
+
+      <div class="card">
+        <!-- Loading state -->
+        <div class="dots" id="loadingDots">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <!-- Filled after API call -->
+        <div class="card-body" id="cardBody" style="display:none">
+          <div class="meta-row">
+            <div class="meta-block">
+              <span class="meta-lbl">Transaction ID</span>
+              <span class="meta-val mono" id="txnId">—</span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-lbl">Date</span>
+              <span class="meta-val mono" id="orderDate">—</span>
+            </div>
+            <div class="meta-block">
+              <span class="meta-lbl">Status</span>
+              <span class="badge pending" id="statusBadge">pending</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div>
+            <p class="sec-lbl">Items Ordered</p>
+            <ul class="items-list" id="itemsList"></ul>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="foot-row">
+            <div class="addr-block">
+              <span class="meta-lbl">Delivery Address</span>
+              <span class="meta-val" id="deliveryAddr" style="font-size:.8rem">—</span>
+            </div>
+            <div class="total-block">
+              <span class="meta-lbl">Total Paid</span>
+              <span class="total-amt" id="totalAmt">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <a href="./orders.html" class="btn btn-primary">View All Orders</a>
+        <a href="./index.html"  class="btn btn-ghost">Back to Home</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="./js/api.js"></script>
+  <script src="./js/order-success.js"></script>
+
+</body>
+</html>
