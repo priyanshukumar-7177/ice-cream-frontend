@@ -10,7 +10,7 @@
    REGISTRATION PAGE
 ══════════════════════ */
 
-const BASE_URL = "http://localhost:8000/api/v1";
+const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com";
 
 
 // Input fields
