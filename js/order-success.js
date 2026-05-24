@@ -1,6 +1,6 @@
 const $ = id => document.getElementById(id);
 
-const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com";
+const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com/api/v1";
 
 
 /* =============================================================
