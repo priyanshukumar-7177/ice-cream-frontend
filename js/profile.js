@@ -3,7 +3,7 @@
    Fix: Avatar photo upload REMOVED
 ══════════════════════════════════════════ */
 
-const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com";
+const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com/api/v1";
 
 // ── HELPERS ──
 function gid(id) { return document.getElementById(id); }
