@@ -4,7 +4,7 @@ const loginPasswordInput = document.querySelector('input[type="password"]');
 const loginSuccessBox = document.getElementById("loginSuccessBox");
 const loginFormSection = document.getElementById("loginFormSection");
 
-const BASE_URL = "http://localhost:8000/api/v1";
+const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com";
 
 
 async function loginUser() {
