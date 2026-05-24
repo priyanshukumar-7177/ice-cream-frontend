@@ -18,7 +18,7 @@ let otpAttempts  = 0;
 let timerInterval = null;
 
 // Updated to match the single base URL convention
-const BASE_URL = "http://localhost:8000/api/v1";
+const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com";
 
 
 // ────────── SEND OTP ──────────
