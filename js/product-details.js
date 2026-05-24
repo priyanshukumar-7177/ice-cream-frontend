@@ -4,7 +4,7 @@
    handles qty, add-to-cart, buy-now, lightbox.
 ══════════════════════════════════════════ */
 
-const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com";
+const BASE_URL = "https://ice-cream-backend-zwrr.onrender.com/api/v1";
 
 let currentProduct = null;
 let qty = 1;
