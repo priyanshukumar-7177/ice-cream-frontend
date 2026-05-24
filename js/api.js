@@ -1,6 +1,6 @@
 // js/api.js
 
-const BASE = "http://localhost:8000/api/v1";
+const BASE = "https://ice-cream-backend-zwrr.onrender.com";
 
 
 // This is your "api" wrapper — works like axios but with plain fetch
